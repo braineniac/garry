@@ -38,6 +38,9 @@ void loop() {
 
 void requestEvent() {
     
-    Wire.write("hello ");
+    while ( 1 < Wire.available()) {
+      char c = Wire.read();
+      Serial.print(c);
+    }
 
 }
