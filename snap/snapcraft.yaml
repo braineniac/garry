@@ -10,7 +10,7 @@ confinement: devmode
 parts:
   workspace:
     source: http://github.com/braineniac/garry.git
-    source-branch: devel
+    source-branch: master
     plugin: catkin
     rosdistro: melodic
     catkin-packages: [garry]
