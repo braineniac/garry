@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>garry</name>
-  <version>0.0.0</version>
-  <description>The garry package</description>
+  <name>ctr_arduino</name>
+  <version>0.0.1</version>
+  <description>The ctr_arduino package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="braineniac@protonmail.com">Daniel Hammer</maintainer>
+  <maintainer email="braineniac@protonmail.com">braineniac</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>MPL2.0</license>
+  <license>MPL-2</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/garry</url> -->
+  <!-- <url type="website">http://wiki.ros.org/ctr_arduino</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
   <!-- Authors do not have to be maintainers, but could be -->
   <!-- Example: -->
-  <author email="braineniac@protonmail.com">Daniel Hammer</author>
+  <author email="braineniac@protonmail.com">Daniel Hammer</author> -->
 
 
   <!-- The *depend tags are used to specify dependencies -->
@@ -50,10 +50,13 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
+  <build_depend>roslaunch</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>roslaunch</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <exec_depend>roscpp</exec_depend>
+  <exec_depend>roslaunch</exec_depend>
   <exec_depend>std_msgs</exec_depend>
 
 
