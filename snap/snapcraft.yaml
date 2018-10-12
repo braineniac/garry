@@ -9,7 +9,7 @@ confinement: devmode
 
 parts:
   workspace:
-    source: http://github.com/braineniac/garry.git
+    source: https://github.com/braineniac/garry.git
     source-branch: master
     source-space: ctr_arduino/
     plugin: catkin
