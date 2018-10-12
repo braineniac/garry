@@ -1,8 +1,7 @@
 name: garry
 version: '0.1'
 summary: A robot snail that will inevitably kill all humans
-description: |
-Its not quite ready for that though.
+description: Its not quite ready for that though.
   
 grade: devel
 confinement: strict
