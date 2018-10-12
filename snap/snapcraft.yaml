@@ -12,7 +12,7 @@ parts:
     source: http://github.com/braineniac/garry.git
     source-branch: master
     plugin: catkin
-    rosdistro: melodic
+    rosdistro: kinetic
     catkin-packages: [garry]
   
 apps:
