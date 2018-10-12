@@ -17,10 +17,5 @@ parts:
     catkin-packages: [ctr_arduino]
   
 apps:
-  roscore:
-    command: roscore
-    plugs: [network, network-bind]
-  
-  roslaunch:
+  run:
     command: roslaunch ctr_arduino arduino.launch
-    plugs: [network, network-bind]

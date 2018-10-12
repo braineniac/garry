@@ -24,6 +24,7 @@ int open_i2c_bus() {
 	else {
 		printf("Opened I2C bus\n");
 		return 0;
+	}
 }
 
 int access_arduino() {
@@ -34,8 +35,9 @@ int access_arduino() {
 		return -1;
 	}
 	else {
-		print("Accessed I2C device\n");
+		printf("Accessed I2C device\n");
 		return 0;
+	}
 }
 
 int read_arduino() {
@@ -46,6 +48,7 @@ int read_arduino() {
 
 		printf("Failed to read from I2C bus\n");
 		return -1;
+	}
 	else {
 		printf("Data read: %s\n",buffer);
 		return 0;
@@ -79,7 +82,7 @@ void ctr_arduino_cb(const std_msgs::String::ConstPtr& msg) {
 }
 
 /* main function */
-int main(int argc, int *argv[]) {
+int main(int argc, char **argv) {
 	
 	ros::init(argc,argv,"ctr_arduino");
 	ros::NodeHandle nh;
@@ -92,7 +95,7 @@ int main(int argc, int *argv[]) {
 		std_msgs::String msg;
 
 		std::stringstream ss;
-		ss << "Arduino test successful" << count;
+		ss << "Arduino test successful";
 		msg.data = ss.str();
 
 		ROS_INFO("%s", msg.data.c_str());

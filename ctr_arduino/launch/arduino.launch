@@ -1,6 +1,5 @@
 <launch>
-  <group ns="garry">
-    <node pkg="garry" name="ctr_arduino" type="ctr_arduino.cpp">
-    </node>
+  <group ns="ctr_arduino">
+    <node pkg="ctr_arduino" name="ctr_arduino" type="ctr_arduino"/>
   </group>
 </launch>
