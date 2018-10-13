@@ -6,7 +6,7 @@ description: |
   
 grade: devel
 confinement: devmode
-
+build-packages: [lsb-release]
 parts:
   workspace:
     source: https://github.com/braineniac/garry.git
