@@ -1,5 +1,5 @@
 <launch>
   <group ns="ctr_arduino">
-    <node pkg="ctr_arduino" name="ctr_arduino" type="ctr_arduino"/>
+    <node pkg="ctr_arduino" name="ctr_arduino" type="ctr_arduino" output="screen" />
   </group>
 </launch>

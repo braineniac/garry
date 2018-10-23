@@ -7,7 +7,7 @@
 #include "std_msgs/String.h"
 #include "sstream"
 
-#define ARDUINO_I2C_ADDR 0x09
+#define ARDUINO_I2C_ADDR 0x04
 
 int file_i2c;
 unsigned char buffer[60] = {0};
@@ -18,11 +18,11 @@ int open_i2c_bus() {
 	char *filename = (char *)"/dev/i2c-1";
 	if ((file_i2c = open(filename, O_RDWR)) < 0) {
 
-		printf("Failed to open I2C bus");
+		ROS_INFO("Failed to open I2C bus");
 		return -1;
 	}
 	else {
-		printf("Opened I2C bus\n");
+		ROS_INFO("Opened I2C bus\n");
 		return 0;
 	}
 }
@@ -31,11 +31,11 @@ int access_arduino() {
 
 	if (ioctl(file_i2c, I2C_SLAVE, ARDUINO_I2C_ADDR) < 0) {
 
-		printf("Failed to acquire bus access and/or talk to slave.\n");
+		ROS_INFO("Failed to acquire bus access and/or talk to slave.\n");
 		return -1;
 	}
 	else {
-		printf("Accessed I2C device\n");
+		ROS_INFO("Accessed I2C device\n");
 		return 0;
 	}
 }
@@ -46,30 +46,34 @@ int read_arduino() {
 	unsigned char buffer[60] = {0};
 	if (read(file_i2c,buffer,length) != length) {
 
-		printf("Failed to read from I2C bus\n");
+		ROS_INFO("Failed to read from I2C bus\n");
 		return -1;
 	}
 	else {
-		printf("Data read: %s\n",buffer);
+		ROS_INFO("Data read: %s\n",buffer);
 		return 0;
 	}
 }
 
-int write_arduino() {
+int write_arduino(int cmd_num,int cmd_param0, int cmd_param1, int cmd_param2, int cmd_param3) {
 
-	int length = 2;
-	unsigned char buffer[60] = {0};
+	int length = 6;
 
-	buffer[0] = 0x01;
-	buffer[1] = 0x02;
+	buffer[0] = 42;
+	buffer[1] = cmd_num;
+	buffer[2] = cmd_param0;
+	buffer[3] = cmd_param1;
+	buffer[4] = cmd_param2;
+	buffer[5] = cmd_param3;
+
 
 	if (write(file_i2c, buffer, length) != length) {
 
-		printf("Failed to write to I2C bus\n");
+		ROS_INFO("Failed to write to I2C bus\n");
 		return -1;
 	}
 	else {
-		printf("Written data to I2C bus\n");
+	 	ROS_INFO("Written data to I2C bus\n");
 		return 0;
 	}
 
@@ -98,13 +102,15 @@ int main(int argc, char **argv) {
 		ss << "Arduino test successful";
 		msg.data = ss.str();
 
-		ROS_INFO("%s", msg.data.c_str());
 		ctr_arduino_pub.publish(msg);
-		
+		while(1) {
 		if( open_i2c_bus() == 0)
 			if (access_arduino() == 0)
-				write_arduino();	
+				write_arduino(1,1,1,100,100);	
 
+		}
+		ROS_INFO("%s", msg.data.c_str());
+		
 		ros::spin();
 	}
 
