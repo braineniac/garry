@@ -103,11 +103,12 @@ int main(int argc, char **argv) {
 		msg.data = ss.str();
 
 		ctr_arduino_pub.publish(msg);
-		while(1) {
-		if( open_i2c_bus() == 0)
-			if (access_arduino() == 0)
+		if( open_i2c_bus() == 0) {
+			if (access_arduino() == 0) {
+				write_arduino(3,1,1,0,0);
+				write_arduino(2,60,90,0,0);
 				write_arduino(1,1,1,100,100);	
-
+			}
 		}
 		ROS_INFO("%s", msg.data.c_str());
 		
