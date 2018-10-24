@@ -92,18 +92,37 @@ void motor_cb(const ctr_arduino::Motor& motor_msg) {
 	
 	int A_speed = motor_msg.A_speed;
 	int B_speed = motor_msg.B_speed;
-	int A_dur = motor_msg.A_dur;
-	int B_dur = motor_msg.B_dur;
+	float A_dur = motor_msg.A_dur;
+	float B_dur = motor_msg.B_dur;
 	bool A_dir = (A_speed>0);
 	bool B_dir = (B_speed>0);
 	
+	int countA = round(A_dur/0.1);
+	int countB = round(B_dur/0.1);
+	int n;
+
 	if(A_speed < -255 && A_speed > 255)
 		ROS_ERROR("Invalid speed on channel A");
 	else if (B_speed < -255 && B_speed > 255)
 		ROS_ERROR("Invalid speed on channel B");
 	else {
-		write_arduino(1,A_dir,B_dir,abs(A_speed),abs(B_speed));
 		ROS_INFO("Motor movement set");
+		if (A_dur > B_dur) {
+			for(n=0;n<countB; n++) {	
+				write_arduino(1,A_dir,B_dir,abs(A_speed),abs(B_speed));
+			}
+			for(n=countB;n<countA;n++) {
+				write_arduino(1,A_dir,B_dir,abs(A_speed),0);
+			}
+		}
+		else {
+			for(n=0;n<countA; n++) {        
+                                write_arduino(1,A_dir,B_dir,abs(A_speed),abs(B_speed));
+                        }
+                        for(n=countA;n<countB;n++) {
+                                write_arduino(1,A_dir,B_dir,0,abs(B_speed));
+                        }
+		}
 	}
 }
 
