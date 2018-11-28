@@ -2,6 +2,9 @@
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include <Servo.h>
+#include <ros.h>
+#include <std_msgs/String.h>
+
 
 #define SLAVE_ADDR 0x04
 

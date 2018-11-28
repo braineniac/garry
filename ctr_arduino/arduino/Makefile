@@ -7,6 +7,9 @@
 ### This is the path to where you have created/cloned your project
 PROJECT_DIR       = $(shell dirname $(shell dirname $(shell pwd)))
 
+### Arduino libraries
+ARDUINO_LIBS= Wire SoftwareSerial Servo ros_lib
+
 ### AVR_GCC_VERSION
 ### Check if the version is equal or higher than 4.9
 AVR_GCC_VERSION  := $(shell expr `avr-gcc -dumpversion | cut -f1` \>= 4.9)
