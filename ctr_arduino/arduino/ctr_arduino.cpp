@@ -1,36 +1,20 @@
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#include <Wire.h>
-#include <Servo.h>
-#include <ros.h>
-#include <std_msgs/String.h>
-
+#include "ctr_arduino.h"
 
 #define SLAVE_ADDR 0x04
 
 #define ENABLE_LOG //comment out to disable logging
+
 #define VALID_DATA 42
 
-/* macro functions */
-#ifdef ENABLE_LOG
-#define LOG(x)  {  Serial.println(x); }
-#else
-#define LOG(x) // do nothing
-#endif
-
+/* global variables */
 Servo servoA;
 Servo servoB;
 
-void call_function(int fnum, int param1, int param2, int param3,int param4);
-void set_LEDs(int led1, int led2);
-void motor_move(int A_dir, int B_dir, int A_speed, int B_speed);
-void servo_move(int posA, int posB);
-void receive_data_cb(int byteCount);
-void send_data_cb();
+ros::NodeHandle nh;
 
+ros::Subscriber<std_msgs::Bool> sub_led_right_eye("led_right_eye", &led_right_eye_cb);
+ros::Subscriber<std_msgs::Bool> sub_led_left_eye("led_left_eye", &led_left_eye_cb);
 
-
- 
 void setup() {
 
     /* starting serial */
@@ -43,6 +27,7 @@ void setup() {
     LOG("[INIT] I2C slave initialised");
 
     /* initialise motor shield */
+
     //Setup Channel A
     pinMode(12, OUTPUT); //Initiates Motor Channel A pin
     pinMode(9, OUTPUT); //Initiates Brake Channel A pin
@@ -68,6 +53,11 @@ void setup() {
     Wire.onRequest(send_data_cb);
     LOG("[INIT] I2C callbacks defined")
 
+    /* initialising ROS */
+    nh.initNode();
+    nh.subscribe(sub_led_left_eye);
+    nh.subscribe(sub_led_right_eye);
+
     LOG("[INIT] Initialisation completed")
 
 }
@@ -76,6 +66,7 @@ void setup() {
 void loop() {
   
     //LOG("[LOOP] Starting loop")
+    nh.spinOnce();
     delay(100);
 }
 
@@ -105,6 +96,20 @@ void call_function(int fnum, int param1, int param2, int param3,int param4) {
               break;
     }
     
+}
+/* callback functions */
+void led_left_eye_cb(const std_msgs::Bool& msg) {
+	if (msg.data == 1)
+		digitalWrite(7, HIGH);
+	else
+		digitalWrite(7, LOW);
+}
+
+void led_right_eye_cb(const std_msgs::Bool& msg) {
+	if (msg.data == 1)
+		digitalWrite(4, HIGH);
+	else
+		digitalWrite(4, LOW);
 }
 
 void set_LEDs(int led1, int led2) {
