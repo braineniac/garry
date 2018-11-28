@@ -1,19 +1,10 @@
 #include <Arduino.h>
-#include <string.h>
-#include <SoftwareSerial.h>
 #include <Wire.h>
 #include <Servo.h>
+
 #include <ros.h>
 #include <std_msgs/Bool.h>
 
-//#define USE_USBCON
-
-/* macro functions */
-#ifdef ENABLE_LOG
-#define LOG(x)  {  Serial.println(x); }
-#else
-#define LOG(x) // do nothing
-#endif
 
 /* function definitions */
 void call_function(int fnum, int param1, int param2, int param3,int param4);
@@ -22,5 +13,6 @@ void motor_move(int A_dir, int B_dir, int A_speed, int B_speed);
 void servo_move(int posA, int posB);
 void receive_data_cb(int byteCount);
 void send_data_cb();
+
 void led_left_eye_cb(const std_msgs::Bool& msg);
 void led_right_eye_cb(const std_msgs::Bool& msg);

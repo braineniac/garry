@@ -8,7 +8,7 @@
 PROJECT_DIR       = $(shell dirname $(shell dirname $(shell pwd)))
 
 ### Arduino libraries
-ARDUINO_LIBS= Wire SoftwareSerial Servo ros_lib
+ARDUINO_LIBS= Wire Servo ros_lib
 
 ### AVR_GCC_VERSION
 ### Check if the version is equal or higher than 4.9
