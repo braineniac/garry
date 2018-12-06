@@ -13,7 +13,7 @@
 #include "ctr_arduino/Motor.h"
 #include "ctr_arduino/LEDs.h"
 
-#define ARDUINO_I2C_ADDR 0x04
+#define ARDUINO_I2C_ADDR 0x68
 
 int file_i2c;
 unsigned char buffer[60] = {0};
@@ -50,14 +50,17 @@ int read_arduino() {
 	
 	int length = 4;
 	unsigned char buffer[60] = {0};
-	if (read(file_i2c,buffer,length) != length) {
-
-		ROS_INFO("Failed to read from I2C bus\n");
-		return -1;
-	}
-	else {
-		ROS_INFO("Data read: %s\n",buffer);
-		return 0;
+	if (open_i2c_bus() == 0) {
+		if (access_arduino() == 0) {
+			if (read(file_i2c,buffer,length) != length) {
+				ROS_INFO("Failed to read from I2C bus\n");
+				return -1;
+			}
+			else {
+				ROS_INFO("Data read: %s\n",buffer);
+				return 0;
+			}
+		}
 	}
 }
 
@@ -152,8 +155,13 @@ void LEDs_cb(const ctr_arduino::LEDs& LEDs_msg) {
 
 void initialise_hardware() {
 
-	write_arduino(3,1,1,0,0); //enables LEDs
-	write_arduino(2,60,90,0,0); // sets servos to default position
+	//write_arduino(3,1,1,0,0); //enables LEDs
+	//write_arduino(2,60,90,0,0); // sets servos to default position
+	
+	while(1) {
+		read_arduino();
+		sleep(1);
+	}
 
 }
 /* main function */

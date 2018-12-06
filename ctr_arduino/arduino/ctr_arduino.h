@@ -4,6 +4,7 @@
 
 #include <ros.h>
 #include <std_msgs/Bool.h>
+#include <geometry_msgs/Twist.h>
 
 
 /* function definitions */
@@ -16,3 +17,7 @@ void send_data_cb();
 
 void led_left_eye_cb(const std_msgs::Bool& msg);
 void led_right_eye_cb(const std_msgs::Bool& msg);
+void servo_upper_cb(const geometry_msgs::Twist& msg);
+void servo_lower_cb(const geometry_msgs::Twist& msg);
+void motor_left_cb(const geometry_msgs::Twist& msg);
+void motor_right_cb(const geometry_msgs::Twist& msg);

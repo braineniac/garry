@@ -1,7 +1,5 @@
 #include "ctr_arduino.h"
 
-#define SLAVE_ADDR 0x68
-
 /* global variables */
 Servo servoA;
 Servo servoB;
@@ -10,6 +8,10 @@ ros::NodeHandle nh;
 
 ros::Subscriber<std_msgs::Bool> sub_led_right_eye("led_right_eye", &led_right_eye_cb);
 ros::Subscriber<std_msgs::Bool> sub_led_left_eye("led_left_eye", &led_left_eye_cb);
+ros::Subscriber<geometry_msgs::Twist> sub_motor_left("motor_left", &motor_left_cb);
+ros::Subscriber<geometry_msgs::Twist> sub_motor_right("motor_right", &motor_right_cb);
+ros::Subscriber<geometry_msgs::Twist> sub_servo_upper("servo_upper", &servo_upper_cb);
+ros::Subscriber<geometry_msgs::Twist> sub_servo_lower("servo_lower", &servo_lower_cb);
 
 void setup() {
 
@@ -36,7 +38,10 @@ void setup() {
     nh.initNode();
     nh.subscribe(sub_led_left_eye);
     nh.subscribe(sub_led_right_eye);
-
+    nh.subscribe(sub_motor_left);
+    nh.subscribe(sub_motor_right);
+    nh.subscribe(sub_servo_upper);
+    nh.subscribe(sub_servo_lower);
 }
 
 /* main loop */
@@ -71,6 +76,48 @@ void led_right_eye_cb(const std_msgs::Bool& msg) {
 
 }
 
+void motor_left_cb(const geometry_msgs::Twist& msg) {
+
+	nh.loginfo("Left motor is moving");
+
+	float speed = msg.linear.x;
+
+	if (speed > 0)
+		digitalWrite(12, LOW); // A motor forward
+
+	else
+		digitalWrite(12, HIGH); // A motor backwards	
+	
+	digitalWrite(9, LOW); // disable A motor brake
+	analogWrite(3, speed);
+
+	delay(1000);
+
+	digitalWrite(9, HIGH); //enable motor A brake
+
+}
+
+void motor_right_cb(const geometry_msgs::Twist& msg) {
+
+	nh.loginfo("Right motor is moving");
+
+	float speed = msg.linear.x;
+
+	if (speed > 0)
+		digitalWrite(13, LOW); // A motor forward
+
+	else
+		digitalWrite(13, HIGH); // A motor backwards	
+	
+	digitalWrite(8, LOW); // disable A motor brake
+	analogWrite(11, speed);
+
+	delay(1000);
+
+	digitalWrite(8, HIGH); //enable motor A brake
+
+}
+/*
 void motor_left_cb() {
 
         int n;
@@ -91,7 +138,7 @@ void motor_left_cb() {
         }
 }
 
-void servo_move(int posA, int posB) {
+void servo_upper_cb(int posA, int posB) {
         if (posA >=10 && posA <=200 && posB <=90) {
             nh.loginfo("[SERVO_MOVE] Servo moving into position");
             nh.loginfo("[SERVO_MOVE] position of A");
@@ -104,6 +151,27 @@ void servo_move(int posA, int posB) {
         }
         
         
+}
+*/
+
+void servo_upper_cb(const geometry_msgs::Twist& msg) {
+
+	float angle = msg.angular.x;
+
+	nh.loginfo("Upper servo moving");
+
+	servoA.write(angle);
+
+}
+
+void servo_lower_cb(const geometry_msgs::Twist& msg) {
+
+	float angle = msg.angular.x;
+
+	nh.loginfo("Lower servo moving");
+
+	servoB.write(angle);
+
 }
 
 /* callback for received data */
