@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ctr_arduino)
+project(garry-robot)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  roslaunch
-  std_msgs
-  genmsg
-  message_generation
+  rospy
+  rosserial_arduino
+  rosserial_client
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,12 +48,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-   FILES
-   Motor.msg
-   Servo.msg
-   LEDs.msg
-)
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -71,10 +69,10 @@ add_message_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-   DEPENDENCIES
-   std_msgs
-)
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,14 +105,24 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES ctr_arduino
-  CATKIN_DEPENDS roscpp roslaunch std_msgs message_runtime
+#  LIBRARIES garry-robot
+#  CATKIN_DEPENDS cpp joy rospy twist
 #  DEPENDS system_lib
 )
 
 ###########
 ## Build ##
 ###########
+
+rosserial_generate_ros_lib(
+	PACKAGE rosserial_arduino
+	SCRIPT make_libraries.py
+)
+
+rosserial_configure_client(
+	DIRECTORY firmware
+	TOOLCHAIN_FILE ${ROSSERIAL_ARDUINO_TOOLCHAIN}
+)
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -125,7 +133,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/ctr_arduino.cpp
+#   src/${PROJECT_NAME}/garry-robot.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -136,7 +144,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME} src/ctr_arduino.cpp)
+# add_executable(${PROJECT_NAME}_node src/garry-robot_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,12 +154,12 @@ add_executable(${PROJECT_NAME} src/ctr_arduino.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}
-   ${catkin_LIBRARIES}
-)
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -188,12 +196,15 @@ target_link_libraries(${PROJECT_NAME}
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+rosserial_add_client_target(firmware garry-robot ALL)
+rosserial_add_client_target(firmware garry-robot-upload)
+
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ctr_arduino.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_garry-robot.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
