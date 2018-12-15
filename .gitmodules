@@ -1,3 +1,6 @@
 [submodule "Arduino-Makefile"]
 	path = Arduino-Makefile
 	url = https://github.com/sudar/Arduino-Makefile
+[submodule "ros_mpu6050_node"]
+	path = ros_mpu6050_node
+	url = https://github.com/chrisspen/ros_mpu6050_node.git
