@@ -1,6 +1,7 @@
-#include <stdint.h>
+#define __STDC_FORMAT_MACROS 1
+
+#include <inttypes.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include <Arduino.h>
 #include <Wire.h>

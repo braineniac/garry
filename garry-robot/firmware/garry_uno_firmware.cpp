@@ -3,6 +3,8 @@
 // comment out to disable logging
 //#define ENABLE_LOG
 
+#define MAX_LOG_LEN 30
+
 /* global variables */
 Servo servoA;
 Servo servoB;
@@ -67,11 +69,11 @@ void led_left_eye_cb(const std_msgs::Bool& msg) {
 	else
 		digitalWrite(4, LOW);
 	
-//	#ifdef ENABLE_LOG
-//	char logoutput[50];
-//	snprintf(logoutput,50,"Setting left eye %d",msg.data);
-//	nh.loginfo(logoutput);
-//	#endif
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Setting left eye %d",msg.data);
+	nh.loginfo(logoutput);
+	#endif
 }
 
 void led_right_eye_cb(const std_msgs::Bool& msg) {
@@ -81,22 +83,22 @@ void led_right_eye_cb(const std_msgs::Bool& msg) {
 	else
 		digitalWrite(7, LOW);
 	
-//	#ifdef ENABLE_LOG
-//	char logoutput[50];
-//	snprintf(logoutput,50,"Setting right eye %d",msg.data);
-//	nh.loginfo(logoutput);
-//	#endif
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Setting right eye %d",msg.data);
+	nh.loginfo(logoutput);
+	#endif
 }
 
 void motor_left_cb(const geometry_msgs::Twist& msg) {
 
 	uint8_t speed = (uint8_t) (255 * msg.linear.x);
 	
-	//#ifdef ENABLE_LOG
-//	char logoutput[50];
-//	snprintf(logoutput,50,"Left motor moving, speed: %"PRIu8,speed);
-//	nh.loginfo(logoutput);
-	//#endif
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Left motor moving, speed: %d",speed);
+	nh.loginfo(logoutput);
+	#endif
 
 	if (msg.linear.x > 0)
 		digitalWrite(12, LOW); // A motor forward
@@ -117,11 +119,11 @@ void motor_right_cb(const geometry_msgs::Twist& msg) {
 
 	uint8_t speed = (uint8_t) (255 * abs(msg.linear.x));
 	
-	//#ifdef ENABLE_LOG
-//	char logoutput[50];
-//	snprintf(logoutput,50,"Right motor moving, speed: %"PRIu8,speed);
-//	nh.loginfo(logoutput);
-	//#endif
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Right motor moving, speed: %d",speed);
+	nh.loginfo(logoutput);
+	#endif
 
 	if (msg.linear.x > 0)
 		digitalWrite(13, HIGH); // B motor forward
@@ -142,11 +144,11 @@ void motor_both_cb(const geometry_msgs::Twist& msg) {
 
 	uint8_t speed = (uint8_t) (255 * abs(msg.linear.x));
 	
-	//#ifdef ENABLE_LOG
-	//char logoutput[50];
-	//snprintf(logoutput,50,"Both motors moving, speed: %"PRIu8,speed);
-	//nh.loginfo(logoutput);
-	//#endif
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Both motors moving, speed: %d",speed);
+	nh.loginfo(logoutput);
+	#endif
 
 	if (msg.linear.x > 0) {
 		digitalWrite(13, HIGH); // B motor forward
@@ -173,9 +175,12 @@ void motor_both_cb(const geometry_msgs::Twist& msg) {
 void servo_upper_cb(const geometry_msgs::Twist& msg) {
 
 	int angle = (int) (360*msg.angular.x);
-	char logoutput[50];
-	snprintf(logoutput,50,"Upper servo moving, angle: %"PRIu8,angle);
+
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN,"Upper servo moving, angle: %d",angle);
 	nh.loginfo(logoutput);
+	#endif
 
 	servoA.write(angle);
 
@@ -184,9 +189,12 @@ void servo_upper_cb(const geometry_msgs::Twist& msg) {
 void servo_lower_cb(const geometry_msgs::Twist& msg) {
 
 	int angle = (int) (360*msg.angular.x);
-	char logoutput[50];
-	snprintf(logoutput,50, "Lower servo moving, angle: %"PRIu8,angle);
+	
+	#ifdef ENABLE_LOG
+	char logoutput[MAX_LOG_LEN];
+	snprintf(logoutput,MAX_LOG_LEN, "Lower servo moving, angle: %d", angle);
 	nh.loginfo(logoutput);
+	#endif
 
 	servoB.write(angle);
 
