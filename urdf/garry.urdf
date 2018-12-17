@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="garry">
+	<!-- materials  -->
+	<material name="black">
+		<color rgba="0 0 0 0"/>
+	</material>
+
+	<material name="blue">
+		<color rgba="0 0 0.8 1"/>
+	</material>
+
+	<!-- links -->
+	<link name="base_link">
+		<visual>
+			<geometry>
+	      			<box size="250.0 170.0 1.25"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box siz="250.0 170. 1.25"/>
+			</geometry>
+		</collision>
+  	</link>
+	
+	<link name="boards_link">
+		<visual>
+			<geometry>
+				<box size="88.0 58.0 120.0"/>
+			</geometry>
+			<origin rpy="170.0 0 61.25"/>
+			<material name="blue"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="88.0 58.0 120.0"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="base_to_board" type="fixed">
+		<parent link="base_link"/>
+		<child link="boards_link"/>
+		<origin xyz="190.0 0.0 0.0"/>
+	</joint>
+
+	<link name="right_wheel">
+		<visual>
+			<origin rpy="220.0 85.0 -2.5125"/>
+			<geometry>
+				<cylinder length="1.0" radius="2.5125"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="1.0" radius="2.5125"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="base_to_right_wheel" type="fixed">
+		<parent link="base_link"/>
+		<child link="right_wheel"/>
+		<origin xyz="220.0 85.0 -2.5125"/>
+	</joint>	
+
+	<link name="left_wheel">
+		<visual>
+			<origin rpy="220.0 -85.0 -2.5125"/>
+			<geometry>
+				<cylinder length="1.0" radius="-2.5125"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="1.0" radius="2.5125"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="base_to_left_wheel" type="fixed">
+		<parent link="base_link"/>
+		<child link="left_wheel"/>
+		<origin xyz="220.0 -85.0 -2.5125"/>
+	</joint>
+</robot>
