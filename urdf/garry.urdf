@@ -19,7 +19,7 @@
 		</visual>
 		<collision>
 			<geometry>
-				<box siz="250.0 170. 1.25"/>
+				<box size="250.0 170. 1.25"/>
 			</geometry>
 		</collision>
   	</link>

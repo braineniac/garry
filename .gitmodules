@@ -4,3 +4,6 @@
 [submodule "ros_mpu6050_node"]
 	path = ros_mpu6050_node
 	url = https://github.com/chrisspen/ros_mpu6050_node.git
+[submodule "ORB_SLAM2"]
+	path = ORB_SLAM2
+	url = https://github.com/raulmur/ORB_SLAM2
