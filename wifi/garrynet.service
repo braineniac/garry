@@ -1,0 +1,9 @@
+[Unit]
+Description=garrynet iptables set
+After=network.online
+
+[Service]
+ExecStart=/bin/sh -c "iptables-restore < /etc/iptables.ipv4.nat"
+
+[Install]
+WantedBy=multi-user.target

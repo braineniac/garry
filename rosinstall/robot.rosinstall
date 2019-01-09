@@ -1,5 +1,5 @@
 - git:
-    uri: https://github.com/chrisspen/ros_mpu6050_node.git
+    uri: https://github.com/braineniac/ros_mpu6050_node.git
     local-name: robot/mpu6050
 
 - git:
