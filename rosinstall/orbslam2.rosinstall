@@ -1,0 +1,43 @@
+- git:
+    uri: https://github.com/ethz-asl/orb_slam_2_ros.git
+    local-name: orbslam2/orb_slam_2_ros
+
+- git:
+    uri: https://github.com/catkin/catkin_simple.git
+    local-name: orbslam2/catkin_simple
+
+- git:
+    uri: https://github.com/ethz-asl/eigen_catkin.git
+    local-name: orbslam2/eigen_catkin
+
+- git:
+    uri: https://github.com/ethz-asl/eigen_checks.git
+    local-name: orbslam2/eigen_checks
+
+- git:
+    uri: https://github.com/ethz-asl/gflags_catkin.git
+    local-name: orbslam2/gflags_catkin
+
+- git:
+    uri: https://github.com/ethz-asl/glog_catkin.git
+    local-name: orbslam2/glog_catkin
+
+- git:
+    uri: https://github.com/ethz-asl/image_undistort.git
+    local-name: orbslam2/image_undistort
+
+- git:
+    uri: https://github.com/ethz-asl/minkindr.git
+    local-name: orbslam2/minkindr
+
+- git:
+    uri: https://github.com/ethz-asl/minkindr_ros.git
+    local-name: orbslam2/minkindr_ros
+
+- git:
+    uri: https://github.com/ethz-asl/orb_slam_2_catkin.git
+    local-name: orbslam2/orb_slam_2_catkin
+
+- git:
+    uri: https://github.com/uzh-rpg/pangolin_catkin.git
+    local-name: orbslam2/pangolin_catkin

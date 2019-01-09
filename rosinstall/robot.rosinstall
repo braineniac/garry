@@ -1,0 +1,11 @@
+- git:
+    uri: https://github.com/chrisspen/ros_mpu6050_node.git
+    local-name: robot/mpu6050
+
+- git:
+    uri: https://github.com/braineniac/garry-firmware.git
+    local-name: robot/firmware
+
+- git:
+    uri: https://github.com/braineniac/garry-robot.git
+    local-name: robot/robot
