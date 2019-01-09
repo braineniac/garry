@@ -9,7 +9,8 @@ http://github.com/braineniac/garry-description.git
 https://github.com/braineniac/ros_mpu6050_node.git  
 
 ## Hardware  
-raspberry pi 3  model B
+
+raspberry pi 3  model B  
 arduino uno  
 arduino motor shield  
 rapberry camera module  
@@ -45,10 +46,10 @@ In the compiled ros directory add the ros deps:
 Install deps:  
 `rosdep install --from-paths src --ignore-src --rosdistro melodic -y --os:debian:stretch`
 
-Compile ROS with the added deps:  
+Compile ROS with deps:  
 `./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release -q`  
 
-Create workspace and added sources:  
+Create workspace and add sources:  
 `mkdir -p ros_garry/src`  
 `cd ros_garry`  
 `wstool init -t src`
