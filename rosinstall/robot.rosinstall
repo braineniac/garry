@@ -9,3 +9,7 @@
 - git:
     uri: https://github.com/braineniac/garry-robot.git
     local-name: robot/robot
+
+- git:
+    uri: http://github.com/braineniac/garry-description.git
+    local-name: robot/description
