@@ -71,7 +71,7 @@ Stop the services for now:
 `sudo systemctl stop dnsmasq hostapd`  
 
 wlan0 is configured as an access point and connected to the bridge br0. Network access is routed through eth0, 
-so it can access the internet when eth0 is connected and your are connected to the wifi. 
+so it can access the internet when eth0 is connected and your are connected to the wifi.  
 `sudo cp PATH_TO_GARRY/wifi/interfaces /etc/network/interfaces`  
 `sudo mkdir /etc/hostapd`  
 `sudo cp PATH_TO_GARRY/wifi/hostapd.conf /etc/hostapd/`  
