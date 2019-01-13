@@ -27,40 +27,60 @@ The catkin workspace is managed with wstool and rosinstall
 
 ### Dependencies
 
-apt: libglew-dev autoconf  python-pip  hostapd dnsmasq  
-ros-melodic: rosserial_arduino pcl_ros joy
+apt: libglew-dev autoconf hostapd dnsmasq  
+ros-melodic: rosserial_arduino pcl_ros
 
 ### Installation
 
+#### ROS desktop compilation
+
 Write raspbian to an SD card for the Raspberry Pi 3 Model B.  
 
-Follow [this][1] to compile ROS melodic on raspbian.  
+Enable the debian buster repo, but do NOT upgrade the system!  
+
+Follow [this][1] to compile ROS melodic desktop on raspbian. With slight alterations:  
 
 Install deps:  
-`sudo apt install libglew-dev autoconf python-pip -y`  
+`rosdep install --from-paths src --ignore-src --rosdistro melodic -y --os=debian:stretch`  
 
-I used catkin from pip because the stretch version is old and has this [error][1]  
-`pip install catkin catkin-tools rosdep`  
+Create ROS install directory:  
+`sudo mkdir -p /opt/ros/melodic`  
+`sudo chown $USER /opt/ros/melodic`  
 
-In the compiled ros directory add the ros deps:  
-`wstool merge -t src PATH_TO_GARRY/rosinstall/melodic-pcl-ros.rosinstall`  
-`wstool merge -t src PATH_TO_GARRY/rosinstall/melodic-joy.rosinstall`  
-`wstool merge -t src PATH_TO_GARRY/rosinstall/melodic-rosserial_arduino.rosinstall`  
-`wstool update -t src`  
-
-Install deps:  
-`rosdep install --from-paths src --ignore-src --rosdistro melodic -y --os:debian:stretch`
+Fix catkin/cmake issue by replacing the catkin with the latest git source and compile cmake with the referenced commit until this gets fixed. Refs: [1][3] [2][4] [3][5]    
 
 Compile ROS with deps:  
-`./src/catkin/bin/catkin_make_isolated --install -DCMAKE_BUILD_TYPE=Release -q`  
+`./src/catkin/bin/catkin_make_isolated --install  --install-space /opt/ros/melodic -DCMAKE_BUILD_TYPE=Release -q`  
 
-Create workspace and add sources:  
-`mkdir -p ros_garry/src`  
-`cd ros_garry`  
-`wstool init -t src`
-`wstool merge -t src PATH_TO_GARRY/rosinstall/robot.rosinstall`  
-`wstool merge -t src PATH_TO_GARRY/rosinstall/orbslam2.rosinstall`  
-`wstool update -t src`  
+Source workspace with:  
+`echo "source /opt/ros/melodic/install_isolated/setup.bash" >> /home/$USER/.bashrc`  
+`bash`  
+
+#### Swap setup
+
+You will need the extra swap space for compiling pcl_ros.  
+
+Get an empty USB drive, in this case it shows up as /dev/sda. Create a partition on it and format it as ext4.  
+
+Add an entry to /etc/fstab with the PARTUUID of the USB and automount to /swap.
+
+Edit /etc/dphys-swapfile and uncomment all options and leave them empty(this will override all swap restrictions put in place), except the CONF_SWAPFILE=/swap/swapfile.  
+
+Create swapfile in /swap:  
+`sudo dd if=/dev/zero of=/swap/swapfile bs=1G count=7 status=progress`  
+`sudo mkswap /swap/swapfile`  
+
+Disable dphys-service:  
+`sudo systemctl disable dphys-swapfile`    
+`sudo systemctl stop dphys-swapfile`  
+
+Now you can mount the swapfile:  
+`sudo swapon /swap/swapfile`  
+
+Check if it worked with:
+`free -m`  
+
+
 
 ### WIFI access point setup
 
@@ -87,3 +107,6 @@ Then reboot and it should work. The default password is g4rryn3t and can be chan
 
 [1]: http://wiki.ros.org/melodic/Installation/Source
 [2]: https://answers.ros.org/question/294780/ubuntu18-and-ros-melodic-catkin-error-importerror-no-module-named-terminal_color/
+[3]: https://github.com/ros/catkin/pull/975
+[4]: https://gitlab.kitware.com/cmake/cmake/merge_requests/2570/commits
+[5]: https://gitlab.kitware.com/cmake/cmake/issues/18638
