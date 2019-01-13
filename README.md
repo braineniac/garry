@@ -32,7 +32,7 @@ ros-melodic: rosserial_arduino pcl_ros
 
 ### Installation
 
-#### ROS desktop compilation
+#### ROS desktop compilation(melodic, cant use until bug is fixed)
 
 Write raspbian to an SD card for the Raspberry Pi 3 Model B.  
 
@@ -80,12 +80,12 @@ Now you can mount the swapfile:
 Check if it worked with:
 `free -m`  
 
-
-
 ### WIFI access point setup
 
+Follow [this][6] guide.  
+
 Install hostapd and dnsmasq  
-`sudo apt install hostapd dnsmasq -y`  
+`sudo apt install hostapd dnsmasq dhcpcd5 -y`  
 
 Stop the services for now:  
 `sudo systemctl stop dnsmasq hostapd`  
@@ -110,3 +110,4 @@ Then reboot and it should work. The default password is g4rryn3t and can be chan
 [3]: https://github.com/ros/catkin/pull/975
 [4]: https://gitlab.kitware.com/cmake/cmake/merge_requests/2570/commits
 [5]: https://gitlab.kitware.com/cmake/cmake/issues/18638
+[6]: https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md
