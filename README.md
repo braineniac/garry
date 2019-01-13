@@ -84,6 +84,8 @@ Check if it worked with:
 
 Follow [this][6] guide.  
 
+Replace the firmware with the [new][7] one.  
+
 Install hostapd and dnsmasq  
 `sudo apt install hostapd dnsmasq dhcpcd5 -y`  
 
@@ -111,3 +113,4 @@ Then reboot and it should work. The default password is g4rryn3t and can be chan
 [4]: https://gitlab.kitware.com/cmake/cmake/merge_requests/2570/commits
 [5]: https://gitlab.kitware.com/cmake/cmake/issues/18638
 [6]: https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md
+[7]: https://github.com/RPi-Distro/firmware-nonfree
