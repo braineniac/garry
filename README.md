@@ -10,29 +10,23 @@ https://github.com/braineniac/ros_mpu6050_node.git
 
 ## Hardware  
 
-Raspberry Pi 3 Model B  Rev 1.2
+Raspberry Pi 3 Model B  Rev 1.2  
 Arduino Uno Rev3  
 Arduino Motor Shield Rev3    
 Raspberry Pi Night Vision Camera Module(OV5647 5MP Webcam Sensor)  
-Logitech C905 Webcam
+Logitech C905 Webcam  
 MPU-6050  
-Logitech Dual Action Gamepad
+Logitech Dual Action Gamepad  
 2 green LEDs  
 2x generic 5V DC motors  
 2x EMAX ES08MA II 12g Mini Metal Gear Analog Servo
 
-## Installation
-
-The catkin workspace is managed with wstool and rosinstall
-
-### Dependencies
+## Dependencies
 
 apt: libglew-dev autoconf hostapd dnsmasq  
-ros-melodic: rosserial_arduino pcl_ros
+ros-melodic: rosserial_arduino pcl_ros joy  
 
-### Installation
-
-#### ROS desktop compilation(melodic, cant use until bug is fixed)
+## ROS desktop compilation(melodic, cant use until bug is fixed, currently using kinetic with unofficial 16.04 ubuntu)
 
 Write raspbian to an SD card for the Raspberry Pi 3 Model B.  
 
@@ -56,9 +50,9 @@ Source workspace with:
 `echo "source /opt/ros/melodic/install_isolated/setup.bash" >> /home/$USER/.bashrc`  
 `bash`  
 
-#### Swap setup
+## Swap setup
 
-You will need the extra swap space for compiling pcl_ros.  
+You will need the extra swap space for compiling.  
 
 Get an empty USB drive, in this case it shows up as /dev/sda. Create a partition on it and format it as ext4.  
 
@@ -80,7 +74,7 @@ Now you can mount the swapfile:
 Check if it worked with:
 `free -m`  
 
-### WIFI access point setup
+## WIFI access point setup
 
 Follow [this][6] guide.  
 
@@ -105,6 +99,16 @@ Edit the DAMON_CONF in /etc/default/hostapd to /etc/hostapd/hostapd.conf
 
 Then reboot and it should work. The default password is g4rryn3t and can be changed in the dnsmasq.conf file.  
 
+## Workspace setup  
+
+Create new folder:    
+`mkdir -p ros_ws/src && cd ros_ws`
+
+Setup workspace with wstool:  
+`wstool init src GARRY_LOCATION/rosinstall garry.rosinstall`  
+
+Compile with:  
+`catkin build`   
 
 
 [1]: http://wiki.ros.org/melodic/Installation/Source
