@@ -16,7 +16,7 @@ Arduino Motor Shield Rev3
 Raspberry Pi Night Vision Camera Module(OV5647 5MP Webcam Sensor)  
 Logitech C905 Webcam  
 MPU-6050  
-Logitech Dual Action Gamepad
+Logitech Dual Action Gamepad  
 2 green LEDs  
 2x generic 5V DC motors  
 2x EMAX ES08MA II 12g Mini Metal Gear Analog Servo
