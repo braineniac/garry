@@ -76,7 +76,7 @@ Check if it worked with:
 
 ## WIFI access point setup
 
-Follow [this][6] guide.  
+Followed [this][6] guide.  
 
 Replace the firmware with the [new][7] one.  
 
@@ -91,6 +91,12 @@ so it can access the internet when eth0 is connected and your are connected to t
 `sudo cp PATH_TO_GARRY/wifi/interfaces /etc/network/interfaces`  
 `sudo mkdir /etc/hostapd`  
 `sudo cp PATH_TO_GARRY/wifi/hostapd.conf /etc/hostapd/`  
+
+Copy service and iptables rule:  
+`sudo cp PATH_TO_GARRY/wifi/garrynet.service /etc/systemd/system/`  
+`sudo cp PATH_TO_GARRY/wifi/iptables.ipv4/.at /etc/`  
+
+Uncomment ipv4.forwarding in /etc/sysctl.conf.  
 
 Edit the DAMON_CONF in /etc/default/hostapd to /etc/hostapd/hostapd.conf  
 `sudo cp PATH_TO_GARRY/wifi/dhcpcd.conf /etc/`  
