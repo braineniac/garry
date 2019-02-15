@@ -1,15 +1,19 @@
 - git:
     uri: git@github.com:braineniac/ros_mpu6050_node.git
-    local-name: robot/mpu6050
+    local-name: ros_mpu6050_node
 
 - git:
     uri: git@github.com:braineniac/garry-firmware.git
-    local-name: robot/firmware
+    local-name: garry-firmware
 
 - git:
     uri: git@github.com:braineniac/garry-robot.git
-    local-name: robot/robot
+    local-name: garry-robot
 
 - git:
     uri: git@github.com:braineniac/garry-description.git
-    local-name: robot/description
+    local-name: garry-description
+
+- git:
+		uri: https://github.com/raulmur/ORB_SLAM2.git
+		local-name: ORB_SLAM2

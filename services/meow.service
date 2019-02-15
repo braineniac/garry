@@ -1,0 +1,11 @@
+[Unit]
+Description=meow
+After=garry-robot.service
+
+[Service]
+User=dan
+Restart=always
+ExecStart=/bin/bash -c "export TERM=xterm;watch -n 120 cvlc /home/dan/ws_garry/garry/sounds/TomCat-Mr_Smith-2055290520.mp3 vlc://quit"
+
+[Install]
+WantedBy=multi-user.target

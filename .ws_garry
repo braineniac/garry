@@ -1,0 +1,15 @@
+# sourcing
+source /opt/ros/kinetic/setup.zsh
+source /home/dan/ros/devel/setup.zsh
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/home/dan/ws_garry/ORB_SLAM2/Examples/ROS
+
+# node launch aliases
+alias imurun="sudo bash -c \"source /opt/ros/kinetic/setup.bash;source /home/dan/ros/devel/setup.bash; roslaunch ros_mpu6050_node mpu6050.launch\""
+alias cameralaunch="roslaunch garry-robot camera.launch"
+alias robotlaunch="roslaunch garry-robot robot.launch"
+alias orbslam2launch="rosrun ORB_SLAM2 Mono /home/dan/ws_garry/ORBSLAM2/Vocabulary/ORBvoc.txt /home/dan/ros/src/garry-robot/config/webcam_orbslam2.yaml"
+alias loclaunch="roslaunch garry-robot localization.launch"
+
+# make aliases
+alias garryup="cd ~/ros; catkin build --no-deps garry-firmware --make-args garry-firmware_src_garry-firmware-upload; cd ~/ros/src/garry-firmware/src"
+alias robotmake="cd ~/ros; catkin build garry-robot; cd ~/ros/src/garry-robot/src"

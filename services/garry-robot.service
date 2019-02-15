@@ -1,0 +1,12 @@
+[Unit]
+Description=Launch garry-robot robot launch
+After=roscore.service network-online.target
+Requires=roscore.service
+Restart=always
+
+[Service]
+ExecStartPre=/bin/sleep 10
+ExecStart=/bin/zsh -c "source /opt/ros/kinetic/setup.zsh; source /home/dan/ros/devel/setup.zsh; roslaunch garry-robot robot.launch"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Launching the imu
+After=roscore.service network-online.target
+Requires=roscore.service
+Restart=always
+
+[Service]
+ExecStartPre=/bin/sleep 5
+ExecStart=/bin/zsh -c "source /opt/ros/kinetic/setup.zsh; source /home/dan/ros/devel/setup.zsh;roslaunch ros_mpu6050_node mpu6050.launch"
+
+[Install]
+WantedBy=multi-user.target

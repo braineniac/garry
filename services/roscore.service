@@ -1,0 +1,9 @@
+[Unit]
+Description=Rosmaster launch
+After=network-online.target
+
+[Service]
+ExecStart=/bin/zsh -c "source /opt/ros/kinetic/setup.zsh; roscore"
+
+[Install]
+WantedBy=multi-user.target

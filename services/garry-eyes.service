@@ -1,0 +1,11 @@
+[Unit]
+Description=Turns on eyes
+After=garry-robot.service
+
+
+[Service]
+ExecStartPre=/bin/sleep 7
+ExecStart=/bin/zsh -c "source /opt/ros/kinetic/setup.zsh; rostopic pub /arduino/led_left_eye std_msgs/Bool '1' --once;rostopic pub /arduino/led_right_eye std_msgs/Bool '1' --once"
+
+[Install]
+WantedBy=multi-user.target

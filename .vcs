@@ -1,0 +1,9 @@
+repositories:
+  PiShrink:
+    type: git
+    url: https://github.com/Drewsif/PiShrink.git
+    version: master
+  garry:
+    type: git
+    url: git@github.com:braineniac/garry.git
+    version: kinetic-devel
