@@ -1,19 +1,21 @@
 - git:
-    uri: git@github.com:braineniac/ros_mpu6050_node.git
-    local-name: ros_mpu6050_node
-
-- git:
-    uri: git@github.com:braineniac/garry-firmware.git
-    local-name: garry-firmware
-
-- git:
-    uri: git@github.com:braineniac/garry-robot.git
-    local-name: garry-robot
-
-- git:
-    uri: git@github.com:braineniac/garry-description.git
-    local-name: garry-description
-
-- git:
-    uri: https://github.com/raulmur/ORB_SLAM2.git
     local-name: ORB_SLAM2
+    uri: git@github.com:braineniac/ORB_SLAM2.git
+- git:
+    local-name: catkin_simple
+    uri: https://github.com/catkin/catkin_simple.git
+- git:
+    local-name: garry-description
+    uri: git@github.com:braineniac/garry-description.git
+- git:
+    local-name: garry-firmware
+    uri: git@github.com:braineniac/garry-firmware.git
+- git:
+    local-name: garry-robot
+    uri: git@github.com:braineniac/garry-robot.git
+- git:
+    local-name: pangolin_catkin
+    uri: https://github.com/uzh-rpg/pangolin_catkin.git
+- git:
+    local-name: ros_mpu6050_node
+    uri: git@github.com:braineniac/ros_mpu6050_node.git
