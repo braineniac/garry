@@ -15,5 +15,5 @@
     local-name: garry-description
 
 - git:
-		uri: https://github.com/raulmur/ORB_SLAM2.git
-		local-name: ORB_SLAM2
+    uri: https://github.com/raulmur/ORB_SLAM2.git
+    local-name: ORB_SLAM2
