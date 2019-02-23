@@ -1,12 +1,12 @@
 # ROS Project Garry 
 
-My bachelor's project at TU Vienna. A small snail-like robot that uses orbslam2.  
+My bachelor's project at TU Vienna. A small snail-like robot with localization.  
 
 This repo is basically a meta package. The actual ROS packages are:  
+https://github.com/braineniac/rpi_mpu6050.git  
 https://github.com/braineniac/garry-robot.git  
 https://github.com/braineniac/garry-firmware.git  
 https://github.com/braineniac/garry-description.git   
-https://github.com/braineniac/ros_mpu6050_node.git  
 
 ## Hardware  
 
@@ -24,31 +24,7 @@ Logitech Dual Action Gamepad
 ## Dependencies
 
 apt: libglew-dev autoconf hostapd dnsmasq  
-ros-melodic: rosserial_arduino pcl_ros joy  
-
-## ROS desktop compilation(melodic, cant use until bug is fixed, currently using kinetic with unofficial 16.04 ubuntu)
-
-Write raspbian to an SD card for the Raspberry Pi 3 Model B.  
-
-Enable the debian buster repo, but do NOT upgrade the system!  
-
-Follow [this][1] to compile ROS melodic desktop on raspbian. With slight alterations:  
-
-Install deps:  
-`rosdep install --from-paths src --ignore-src --rosdistro melodic -y --os=debian:stretch`  
-
-Create ROS install directory:  
-`sudo mkdir -p /opt/ros/melodic`  
-`sudo chown $USER /opt/ros/melodic`  
-
-Fix catkin/cmake issue by replacing the catkin with the latest git source and compile cmake with the referenced commit until this gets fixed. Refs: [1][3] [2][4] [3][5]    
-
-Compile ROS with deps:  
-`./src/catkin/bin/catkin_make_isolated --install  --install-space /opt/ros/melodic -DCMAKE_BUILD_TYPE=Release -q`  
-
-Source workspace with:  
-`echo "source /opt/ros/melodic/install_isolated/setup.bash" >> /home/$USER/.bashrc`  
-`bash`  
+ros-kinetic: rosserial_arduino pcl_ros joy  
 
 ## Swap setup
 
@@ -76,8 +52,6 @@ Check if it worked with:
 
 ## WIFI access point setup
 
-Followed [this][6] guide.  
-
 Replace the firmware with the [new][7] one.  
 
 Install hostapd and dnsmasq  
@@ -86,22 +60,9 @@ Install hostapd and dnsmasq
 Stop the services for now:  
 `sudo systemctl stop dnsmasq hostapd`  
 
-wlan0 is configured as an access point and connected to the bridge br0. Network access is routed through eth0, 
-so it can access the internet when eth0 is connected and your are connected to the wifi.  
-`sudo cp PATH_TO_GARRY/wifi/interfaces /etc/network/interfaces`  
-`sudo mkdir /etc/hostapd`  
-`sudo cp PATH_TO_GARRY/wifi/hostapd.conf /etc/hostapd/`  
-
-Copy service and iptables rule:  
-`sudo cp PATH_TO_GARRY/wifi/garrynet.service /etc/systemd/system/`  
-`sudo cp PATH_TO_GARRY/wifi/iptables.ipv4/.at /etc/`  
-
-Uncomment ipv4.forwarding in /etc/sysctl.conf.  
-
-Edit the DAMON_CONF in /etc/default/hostapd to /etc/hostapd/hostapd.conf  
-`sudo cp PATH_TO_GARRY/wifi/dhcpcd.conf /etc/`  
-`sudo cp PATH_TO_GARRY/wifi/dnsmasq.conf /etc/`  
-`sudo systemctl enable hostapd dnsmasq dhcpcd`  
+Run:  
+`./scripts/wifi.sh`  
+`./scripts/services.sh`  
 
 Then reboot and it should work. The default password is g4rryn3t and can be changed in the dnsmasq.conf file.  
 
@@ -111,10 +72,10 @@ Create new folder:
 `mkdir -p ros_ws/src && cd ros_ws`
 
 Setup workspace with wstool:  
-`wstool init src GARRY_LOCATION/rosinstall garry.rosinstall`  
+`wstool init src GARRY_DIR/.rosinstall`  
 
 Compile with:  
-`catkin build`   
+`catkin build`  
 
 
 [1]: http://wiki.ros.org/melodic/Installation/Source
