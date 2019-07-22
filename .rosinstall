@@ -17,5 +17,8 @@
     local-name: pangolin_catkin
     uri: https://github.com/uzh-rpg/pangolin_catkin.git
 - git:
-    local-name: ros_mpu6050_node
-    uri: git@github.com:braineniac/ros_mpu6050_node.git
+    local-name: rpi_mpu6050
+    uri: git@github.com:braineniac/rpi_mpu6050.git
+- git:
+    local-name: simple_kalman
+    uri: git@github.com:braineniac/simple_kalman.git
