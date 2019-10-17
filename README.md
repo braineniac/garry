@@ -1,15 +1,16 @@
 # Project Garry
 
-My bachelor's project at TU Vienna. A small snail-like robot with localization.  
+My bachelor's project at TU Vienna. A small snail-like robot with localization capabilities.  
 
-<img src="images/garry.jpg" width="400">
+<div style="text-align:center"><img src="images/garry.jpg" width=400 /></div>
 
-This repo is basically a meta package. The all the packages used in this project are:  
-https://github.com/braineniac/simple_kalman.git  
-https://github.com/braineniac/garry-robot.git  
-https://github.com/braineniac/garry-firmware.git  
-https://github.com/braineniac/garry-description.git  
-https://github.com/braineniac/rpi_mpu6050.git  
+
+The repos used in this project are:  
+- Kalman filters: https://github.com/braineniac/kalman_estimator.git  
+- Low level nodes: https://github.com/braineniac/garry-robot.git  
+- Arduino firmware: https://github.com/braineniac/garry-firmware.git  
+- URDF: https://github.com/braineniac/garry-description.git  
+- MPU6050 driver node: https://github.com/braineniac/rpi_mpu6050.git  
 
 ## Hardware  
 
